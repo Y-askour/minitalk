@@ -20,10 +20,10 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 	static char		printed;
 	static int		shifter;
 	static pid_t	client_pid;
+	static int		i;
 
 	if (client_pid == 0 || info->si_pid != client_pid)
 	{
-		printf("\n pid of client %d\n",info->si_pid);
 		printed = 0b11111111;
 		shifter = 0;
 		client_pid = info->si_pid;
@@ -36,10 +36,18 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 	shifter++;
 	if (shifter == 8)
 	{
-		write(1, &printed, 1);
+		if (printed == 0)
+		{
+		//	printf("test %c\n",printed);
+			kill(info->si_pid,SIGUSR1);
+		}
+		else
+			write(1, &printed, 1);
 		shifter = 0;
 		printed = 0b11111111;
 	}
+	i++;
+	//printf("%d\n",i);
 }
 
 int	main(void)

@@ -14,11 +14,12 @@
 #include <unistd.h>
 #include "libft/libft.h"
 
-void handler(sig)
+void handler(int sig)
 {
 	if (sig == SIGUSR1)
 		ft_putstr_fd("mesage recieved\n",1);
 }
+
 
 void	send_msg(int pid, char *str)
 {
@@ -40,19 +41,27 @@ void	send_msg(int pid, char *str)
 		}
 		i++;
 	}
+	j = 0;
+	while(j < 8)
+	{
+		kill(pid,SIGUSR2);
+		j++;
+		usleep(800);
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	int	pid;
 
+	signal(SIGUSR1, handler);
 	if (argc == 3)
 	{
 		pid = atoi(argv[1]);
 		send_msg(pid, argv[2]);
-		signal(SIGUSR1,&handler);
 	}
 	else
 		ft_putstr_fd("invalid arguments\n", 2);
+	pause();
 	return (0);
 }
