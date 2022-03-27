@@ -14,6 +14,12 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 
+void	handler_helper(char *printed, int *shifter)
+{
+		*printed = 0b11111111;
+		*shifter = 0;
+}
+
 void	handle_sig(int sig, siginfo_t *info, void *test)
 {
 	static char		printed;
@@ -23,10 +29,9 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 
 	if (client_pid == 0 || info->si_pid != client_pid)
 	{
-		printed = 0b11111111;
-		shifter = 0;
+		handler_helper(&printed, &shifter);
 		client_pid = info->si_pid;
-		write(1,"\n",1);
+		write(1, "\n", 1);
 	}
 	if (sig == SIGUSR1)
 		printed = printed | 128 >> shifter;
@@ -36,13 +41,10 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 	if (shifter == 8)
 	{
 		if (printed == 0)
-		{
-			kill(info->si_pid,SIGUSR1);
-		}
+			kill(info->si_pid, SIGUSR1);
 		else
 			write(1, &printed, 1);
-		shifter = 0;
-		printed = 0b11111111;
+		handler_helper(&printed, &shifter);
 	}
 	i++;
 }

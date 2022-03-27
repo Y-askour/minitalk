@@ -13,20 +13,19 @@
 #include <unistd.h>
 #include "libft/libft.h"
 
-void handler(int sig)
+void	handler(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_putstr_fd("mesage recieved\n",1);
+		ft_putstr_fd("mesage recieved\n", 1);
 }
 
-
-void	send_msg(int pid, char *str)
+void	send_msg(int pid,	char *str)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		j = 0;
 		while (j < 8)
@@ -41,9 +40,9 @@ void	send_msg(int pid, char *str)
 		i++;
 	}
 	j = 0;
-	while(j < 8)
+	while (j < 8)
 	{
-		kill(pid,SIGUSR2);
+		kill(pid, SIGUSR2);
 		j++;
 		usleep(800);
 	}
