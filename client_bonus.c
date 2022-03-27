@@ -9,7 +9,6 @@
 /*   Updated: 2022/03/17 18:48:05 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
 #include "libft/libft.h"
@@ -62,6 +61,5 @@ int	main(int argc, char **argv)
 	}
 	else
 		ft_putstr_fd("invalid arguments\n", 2);
-	pause();
 	return (0);
 }

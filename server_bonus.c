@@ -9,7 +9,6 @@
 /*   Updated: 2022/03/24 18:14:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
 #include <unistd.h>
 #include <signal.h>
 #include <stdlib.h>
@@ -38,7 +37,6 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 	{
 		if (printed == 0)
 		{
-		//	printf("test %c\n",printed);
 			kill(info->si_pid,SIGUSR1);
 		}
 		else
@@ -47,7 +45,6 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 		printed = 0b11111111;
 	}
 	i++;
-	//printf("%d\n",i);
 }
 
 int	main(void)
