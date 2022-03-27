@@ -9,9 +9,7 @@
 /*   Updated: 2022/03/17 18:48:05 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <signal.h>
-#include <unistd.h>
-#include "libft/libft.h"
+#include "minitalk.h"
 
 void	handler(int sig)
 {

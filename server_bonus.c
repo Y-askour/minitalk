@@ -9,10 +9,7 @@
 /*   Updated: 2022/03/24 18:14:10 by yaskour          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
-#include "libft/libft.h"
+#include "minitalk.h"
 
 void	handler_helper(char *printed, int *shifter)
 {
@@ -27,6 +24,7 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 	static pid_t	client_pid;
 	static int		i;
 
+	(void)test;
 	if (client_pid == 0 || info->si_pid != client_pid)
 	{
 		handler_helper(&printed, &shifter);
@@ -34,10 +32,9 @@ void	handle_sig(int sig, siginfo_t *info, void *test)
 		write(1, "\n", 1);
 	}
 	if (sig == SIGUSR1)
-		printed = printed | 128 >> shifter;
+		printed = printed | 128 >> shifter++;
 	else
-		printed = printed ^ 128 >> shifter;
-	shifter++;
+		printed = printed ^ 128 >> shifter++;
 	if (shifter == 8)
 	{
 		if (printed == 0)
